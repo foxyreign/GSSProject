@@ -1,0 +1,99 @@
+### Religion and Acceptance of Sexual Relations of the Same Sex
+
+### Introduction:
+
+Does religion preference have significant relationship with how they accept sexual relations of the same sex?
+
+This is very interesting to me as I am, too, a homosexual. I would like to understand how is someone's outlook can depend based on his/her religion. This is also a current topic often discussed, particularly in the United States, as some of the states have started recognizing same sex marriages.
+
+### Data:
+
+A pre-processed data set has been provided in the course and this can be downloaded on http://bit.ly/dasi_gss_data. 
+
+>Smith, Tom W., Michael Hout, and Peter V. Marsden. General Social Survey, 1972-2012 [Cumulative File]. ICPSR34802-v1. Storrs, CT: Roper Center for Public Opinion Research, University of Connecticut /Ann Arbor, MI: Inter-university Consortium for Political and Social Research [distributors], 2013-09-11. from http://doi:10.3886/ICPSR34802.v1. Persistent URL: *http://doi.org/10.3886/ICPSR34802.v1*
+
+The data was collected by interviewing a random sample of all noninstitutionalized, English and Spanish speaking persons 18 years of age or older, living in the United States. These interviews were conducted on the first six months of each year. It is also noted that Spanish-speakers were added in 2006. The surveys were done on computer-assisted personal interviews (CAPI), face-to-face interviews and telephone interviews from 1972-2012.
+
+During data munging, certain cases and variables were dropped to customize the study; below are the following syntaxes to prepare the data.
+
+```{r data.munging}
+# Load GSS dataset and Inference
+load(url("http://bit.ly/dasi_gss_data"))
+source('http://bit.ly/dasi_inference')
+
+# Subset only selected religions
+gss <- subset(gss, relig == "Protestant" | relig == "Catholic" | relig == "None") 
+
+# And omit NA cases in homosexual variable 
+gss <- subset(gss, !is.na(gss$homosex)) 
+
+# Include interviews done on 2006 and later
+gss <- subset(gss, year > 2005) 
+
+ # Factor only the selected religion and responses
+religion <- factor(gss$relig)
+homosexual <- factor(gss$homosex) 
+
+# Produce a dataset from the subsets
+gss <- data.frame(religion, homosexual) 
+```
+
+Originally, there were 57,061 cases that fall under the criteria of selected religion, Protestant, Catholic and None. 32,789 of these cases are valid while 24,272 contains NA or missing values; 57.46% and 42.54% respectively. With further subsetting excluding the invalid cases, only interviews conducted on 2006 and later were included in this study to eliminate bias. Each case in the dataset is the interview of an individual.
+
+Two categorical variables were used in the observational study - **homosexual**, the sexual relationship of the same sex and **religion**, the preference of religion. Four levels of answers were available to respondents that describe their acceptance - Always Wrong, Almost Always Wrong, Sometimes Wrong and Not Wrong At All. Three major religions were included in the study - Protestants, Catholics and None.
+
+Since the surveys were conducted with no random assignment and no control groups of subjects as these were just used to gather trends and patterns in certain attitudes, behaviors in American population, this cannot infer causality.
+
+As this is an observational study, this can infer generalizability of the American population 18 years and above. 
+
+### Exploratory data analysis:
+*An error is shown below because during knitting, R markdown cannot install a package on the default library, this is just normal. Please take note to install the gmodels package.*
+```{r gmodels}
+install.packages("gmodels")
+library(gmodels)
+```
+
+```{r chisquare, fig.height = 5, fig.width = 8, fig.align = "center"}
+mosaicplot(table(gss$religion, gss$homosexual), 
+           las = 1, main = "Mosaic Plot of Religion and Homosexual", 
+           xlab = "Religion", ylab = "Homosexual")
+CrossTable(x = gss$homosexual, y = gss$religion, chisq = T,
+           prop.r = T, prop.c = T, prop.t = T, expected = T, digits = 2, 
+           dnn = c("Homosexual (Response)", "Religion (Explanatory)"))
+```
+
+The dataset consists of two categorical variables, hence computing for the mean or median is not applicable. The results in the chi-squared test are further discussed in the inference section.
+
+Majority of the residents in the US are Protestants, followed by Catholics and lastly, by Atheists or those with no religion. Of the respondents, 56% are Protestants, 25% are Catholics and 19% have no religion. 
+
+By survey responses of acceptance of same sexual relations, 51% answered Always Wrong, 4% said Almost Always Wrong, 7% said Sometimes Wrong and 37% answered Not Wrong At All. 
+
+After customization of data, the total number of interviews is 5,130.
+
+### Inference:
+
+Does religion preference have significant relationship with how they accept sexual relations of the same sex? The null hypothesis states that the religion (explanatory) have no difference with how they accept sexual relations of the same sex (response).
+
+* Null Hypothesis - H<sub>0</sub> - Homosexual and Religion are independent; there is no difference in religion and acceptance of sexual relations of same sex.
+* Alternative Hypothesis - H<sub>A</sub> - Homosexual and Religion are dependent; there is difference in religion and acceptance of sexual relations of same sex.
+
+It was already mentioned that random sampling was made when the surveys were conducted and the cases are independent of each other. Each population is at least 10 times as large as its respective sample. Also, in the contingency table above, the expected frequency count for each cell of the table is at least 5.
+
+Since there are more than two levels for each categorical variables, Chi-squared test of independence was used to perform the inference.
+
+Using the inference large function provided in the course, the results were the same. I just thought of using the frequency table above since that the labels in the mosaic plot included in the inference function cannot be rotated.
+
+```{r inference, fig.height = 4.5, fig.width = 8, fig.align = "center"}
+inference(y = gss$homosexual, x = gss$religion, est = "proportion", 
+          type = "ht", method = "theoretical", alternative = "greater", siglevel = 0.99)
+```
+
+The parameter to estimate is proportion performed using a hypothesis test with a significance level of 0.99. Inference is done using the theoretical method based on central limit theorem. The direction of hypothesis is to greater for chi^2 test since the outcome will always be positive.
+
+The p-value of less than 0.01, which is the set alpha, is the probability that the test outcome would take a value as extreme or more extreme than that observed. The test showed a chi-squared value of 574.4475 with 6 degrees of freedom where the p-value is extremely less than 0.01.
+
+Looking at the curve of the chi-squared distribution with the same degrees of freedom, 574 is way far on the right. With such a very low probability value, there is a very strong evidence against the null hypothesis, proven that the two variables are dependent of each other; therefore, it is rejected.
+
+### Conclusion:
+
+Based on the tests conducted using the chi-squared test of independence, I conclude that within the population of people living in the United States, the acceptance of sexual relations of same sex vary by religion.
