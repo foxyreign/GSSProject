@@ -6,6 +6,8 @@ Does religion preference have significant relationship with how they accept sexu
 
 This is very interesting to me as I am, too, a homosexual. I would like to understand how is someone's outlook can depend based on his/her religion. This is also a current topic often discussed, particularly in the United States, as some of the states have started recognizing same sex marriages.
 
+For the sake of reading this study in a web-friendly format, you may go to https://github.com/foxyreign/GSSProject/blob/master/Homosexual%20and%20Religion.md.
+
 ### Data:
 
 A pre-processed data set has been provided in the course and this can be downloaded on http://bit.ly/dasi_gss_data. 
@@ -53,7 +55,7 @@ install.packages("gmodels")
 library(gmodels)
 ```
 
-```{r chisquare, fig.height = 5, fig.width = 8, fig.align = "center"}
+```{r chisquare, fig.height = 9, fig.width = 8, fig.align = "center"}
 mosaicplot(table(gss$religion, gss$homosexual), 
            las = 1, main = "Mosaic Plot of Religion and Homosexual", 
            xlab = "Religion", ylab = "Homosexual")
@@ -88,12 +90,16 @@ inference(y = gss$homosexual, x = gss$religion, est = "proportion",
           type = "ht", method = "theoretical", alternative = "greater", siglevel = 0.99)
 ```
 
-The parameter to estimate is proportion performed using a hypothesis test with a significance level of 0.99. Inference is done using the theoretical method based on central limit theorem. The direction of hypothesis is to greater for chi^2 test since the outcome will always be positive.
+The parameter to estimate is proportion performed using a hypothesis test with a significance level of 0.99. Inference is done using the theoretical method based on central limit theorem. The direction of hypothesis is to greater for chi^2 test since the outcome will always be positive. Confidence interval nor ANOVA are not applicable in this criteria because the two variables being associated both have more than 2 levels.
 
 The p-value of less than 0.01, which is the set alpha, is the probability that the test outcome would take a value as extreme or more extreme than that observed. The test showed a chi-squared value of 574.4475 with 6 degrees of freedom where the p-value is extremely less than 0.01.
 
-Looking at the curve of the chi-squared distribution with the same degrees of freedom, 574 is way far on the right. With such a very low probability value, there is a very strong evidence against the null hypothesis, proven that the two variables are dependent of each other; therefore, it is rejected.
+Looking at the curve of the chi-squared distribution with the same degrees of freedom, 574 is way far on the right. With such a very low probability value, there is a very strong evidence against the null hypothesis, proven that the two variables are dependent of each other; therefore, it is rejected. 
 
 ### Conclusion:
+
+There may be other confounding factors that affected the outcome as this study is just restricted to look for the relationship between two variables only. The respondents who have no religion tend to be more open with sexual relations of the same sex compared to Protestant. The Catholics are almost divided equally in the extremes where it is always wrong and not wrong at all of acknowledging sexual relations of the same sex.
+
+A different study may be conducted comparing two religions and picking just one response from the homosex variable as to test goodness of fit using chi-square test, as well. Another approach is to conduct comparison among religions that were not included in the initial study.
 
 Based on the tests conducted using the chi-squared test of independence, I conclude that within the population of people living in the United States, the acceptance of sexual relations of same sex vary by religion.
