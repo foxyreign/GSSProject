@@ -2,15 +2,15 @@
 
 ### Introduction:
 
-Does religion preference have significant relationship with how they accept sexual relations of the same sex?
+Does religious preference have a significant relationship with how someone accepts sexual relations of the same sex?
 
-This is very interesting to me as I am, too, a homosexual. I would like to understand how is someone's outlook can depend based on his/her religion. This is also a current topic often discussed, particularly in the United States, as some of the states have started recognizing same sex marriages.
+This is very interesting to me as I am, too, a homosexual. I would like to understand how someone's outlook can depend on his/her religion. This is also a current topic often discussed, particularly in the United States, as some of the states have started recognizing same sex marriages.
 
 For the sake of reading this study in a web-friendly format, you may go to https://github.com/foxyreign/GSSProject/blob/master/Homosexual%20and%20Religion.md.
 
 ### Data:
 
-A pre-processed data set has been provided in the course and this can be downloaded on http://bit.ly/dasi_gss_data. 
+A pre-processed data set has been provided in the course and this can be downloaded at http://bit.ly/dasi_gss_data. 
 
 >Smith, Tom W., Michael Hout, and Peter V. Marsden. General Social Survey, 1972-2012 [Cumulative File]. ICPSR34802-v1. Storrs, CT: Roper Center for Public Opinion Research, University of Connecticut /Ann Arbor, MI: Inter-university Consortium for Political and Social Research [distributors], 2013-09-11. from http://doi:10.3886/ICPSR34802.v1. Persistent URL: *http://doi.org/10.3886/ICPSR34802.v1*
 
@@ -42,7 +42,7 @@ gss <- data.frame(religion, homosexual)
 ```
 
 
-Originally, there were 57,061 cases that fall under the criteria of selected religion, Protestant, Catholic and None. 32,789 of these cases are valid while 24,272 contains NA or missing values; 57.46% and 42.54% respectively. With further subsetting excluding the invalid cases, only interviews conducted on 2006 and later were included in this study to eliminate bias. Each case in the dataset is the interview of an individual.
+Originally, there were 57,061 cases that fall under the criteria of selected religion: Protestant, Catholic and None. 32,789 of these cases are valid while 24,272 contain NA or missing values; 57.46% and 42.54% respectively. With further subsetting excluding the invalid cases, only interviews conducted in 2006 and later were included in this study to eliminate bias. Each case in the dataset is the interview of an individual.
 
 Two categorical variables were used in the observational study - **homosexual**, the sexual relationship of the same sex and **religion**, the preference of religion. Four levels of answers were available to respondents that describe their acceptance - Always Wrong, Almost Always Wrong, Sometimes Wrong and Not Wrong At All. Three major religions were included in the study - Protestants, Catholics and None.
 
@@ -146,7 +146,7 @@ CrossTable(x = gss$homosexual, y = gss$religion, chisq = T, prop.r = T, prop.c =
 
 The dataset consists of two categorical variables, hence computing for the mean or median is not applicable. The results in the chi-squared test are further discussed in the inference section.
 
-Majority of the residents in the US are Protestants, followed by Catholics and lastly, by Atheists or those with no religion. Of the respondents, 56% are Protestants, 25% are Catholics and 19% have no religion. 
+A majority of the residents of the US are Protestants, followed by Catholics and lastly, by Atheists or those with no religion. Of the respondents, 56% are Protestants, 25% are Catholics and 19% have no religion. 
 
 By survey responses of acceptance of same sexual relations, 51% answered Always Wrong, 4% said Almost Always Wrong, 7% said Sometimes Wrong and 37% answered Not Wrong At All. 
 
@@ -154,7 +154,7 @@ After customization of data, the total number of interviews is 5,130.
 
 ### Inference:
 
-Does religion preference have significant relationship with how they accept sexual relations of the same sex? The null hypothesis states that the religion (explanatory) have no difference with how they accept sexual relations of the same sex (response).
+Does religious preference have significant relationship with how they accept sexual relations of the same sex? The null hypothesis states that the religion (explanatory) have no difference with how they accept sexual relations of the same sex (response).
 
 * Null Hypothesis - H<sub>0</sub> - Homosexual and Religion are independent; there is no difference in religion and acceptance of sexual relations of same sex.
 * Alternative Hypothesis - H<sub>A</sub> - Homosexual and Religion are dependent; there is difference in religion and acceptance of sexual relations of same sex.
@@ -217,8 +217,8 @@ Looking at the curve of the chi-squared distribution with the same degrees of fr
 
 ### Conclusion:
 
-There may be other confounding factors that affected the outcome as this study is just restricted to look for the relationship between two variables only. The respondents who have no religion tend to be more open with sexual relations of the same sex compared to Protestant. The Catholics are almost divided equally in the extremes where it is always wrong and not wrong at all of acknowledging sexual relations of the same sex.
+There may be other confounding factors that affected the outcome as this study is just restricted to the relationship between two variables only. The respondents who have no religion tend to be more open with sexual relations of the same sex compared to Protestants. The Catholics are almost divided equally in the extremes where it is always wrong and not wrong at all of acknowledging sexual relations of the same sex.
 
-A different study may be conducted comparing two religions and picking just one response from the homosex variable as to test goodness of fit using chi-square test, as well. Another approach is to conduct comparison among religions that were not included in the initial study.
+A different study may be conducted comparing two religions and picking just one response from the homosexual variable as to test goodness of fit using chi-square test, as well. Another approach is to conduct comparison among religions that were not included in the initial study.
 
-Based on the tests conducted using the chi-squared test of independence, I conclude that within the population of people living in the United States, the acceptance of sexual relations of same sex vary by religion.
+Based on the tests conducted using the chi-squared test of independence, I conclude that within the population of people living in the United States, the acceptance of sexual relations by people of the same sex vary by religion.
